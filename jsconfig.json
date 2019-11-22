@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "utils/*": [
+        "./src/utils/*"
+      ],
+      "mobxStore/*": [
+        "./src/mobxStore/*"
+      ],
+      "assets/*": [
+        "./src/assets/*"
+      ],
+      "screens/*": [
+        "./src/screens/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.js"
+  ]
+}
+

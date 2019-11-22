@@ -1,0 +1,80 @@
+import { Dimensions, Platform, StyleSheet } from 'react-native'
+
+const CORE_RATIO = 667 / 375
+export const MYWIDTH = Dimensions.get('window').width
+export const MYHEIGHT = Dimensions.get('window').height
+const DEVICE_RATIO = MYHEIGHT / MYWIDTH
+const MYSCALE = CORE_RATIO / (MYHEIGHT / MYWIDTH)
+const guidelineBaseHeight = 667
+
+export const width = (num) => MYWIDTH * (num / 100)
+export const height = (num) => MYHEIGHT * (num / 100)
+export const verticalScale = (size) => MYHEIGHT / guidelineBaseHeight * size
+export const heightScale = (num) => MYHEIGHT * (num * MYSCALE / 100)
+export const scale = (num) => num * (CORE_RATIO + (CORE_RATIO - DEVICE_RATIO)) / CORE_RATIO
+
+export const ISIOS = Platform.OS === 'ios'
+
+export const FONT = {
+  OSWALD_LIGHT: 'Oswald-Light',
+  OSWALD_MEDIUM: 'Oswald-Medium',
+  OSWALD_BOLD: 'Oswald-Bold',
+  OSWALD_REGULAR: 'Oswald-Regular'
+}
+
+export const THEME_DEFAULT = {
+  // FONT
+  // family
+
+  // size
+  fontSize1: height(1),
+  fontSize2: height(2),
+  fontSize3: height(3),
+  fontSize4: height(4),
+  fontSize7: height(7),
+
+  // COLORS
+  colorPrimary: 'white', // primary color for your app, usually your brand color.
+  colorAccent: 'black', // secondary color for your app which complements the primary color.
+  colorBackground: 'rgb(73,12,68)', // background color for pages, such as lists.
+  colorBackgroundLight: '#edf0f4',
+  colorSurface: 'black', // background color for elements containing content, such as cards.
+  colorTextRed: 'rgb(194,27,23)', // text color for content.
+  colorTextTitle: 'black', // text color for title.
+  colorInfo: 'black',
+  colorRed: 'red',
+  colorSuccess: 'green',
+  colorDanger: 'rgb(174, 34, 22)',
+  colorDangerLight: 'rgb(209, 113, 104)',
+  colorWarning: 'yellow',
+  colorDisabled: 'gray', // color for disabled elements.
+  colorPlaceholder: '#d8d8d8', // color for placeholder text, such as input placeholder.
+  colorLine: '#eee',
+  colorResultCell: '#f2f2f2',
+  colorIconGray: '#f5f7fa',
+  colorLightWhite: 'rgb(249,249,252)',
+  colorTextGray: '#ababab',
+  colorLightGray: '#d9d9d9',
+  colorText: 'rgb(70,70,86)'
+}
+
+const styles = StyleSheet.create({
+})
+
+export default styles
+
+export function isIphoneX () {
+  const dimen = Dimensions.get('window')
+  return (
+    Platform.OS === 'ios' &&
+      !Platform.isPad &&
+      !Platform.isTVOS &&
+      ((dimen.height === 812 || dimen.width === 812) || (dimen.height === 896 || dimen.width === 896))
+  )
+}
+export function ifIphoneX (iphoneXStyle, regularStyle) {
+  if (isIphoneX()) {
+    return iphoneXStyle
+  }
+  return regularStyle
+}
