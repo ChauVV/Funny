@@ -10,6 +10,8 @@ import Home from 'screens/Home'
 import Register from 'screens/Register'
 import Follow from 'screens/Follow'
 import PostDetail from 'screens/PostDetail'
+import NewsFeedScreen from 'screens/Home/NewsFeedScreen'
+
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import GlobalView from 'components/GlobalView'
@@ -76,9 +78,11 @@ const MainTabbar = createBottomTabNavigator(
 const MainStack = createStackNavigator(
   {
     MainTabbar: MainTabbar,
-    PostDetail: PostDetail
+    PostDetail: PostDetail,
+    NewsFeedScreen: NewsFeedScreen
   }, {
-    headerMode: 'none'
+    headerMode: 'none',
+    mode: 'modal'
   }
 )
 const SwitchNavigator = (isLogin) => createSwitchNavigator(
