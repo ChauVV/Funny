@@ -27,8 +27,8 @@ class Register extends React.PureComponent {
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
             <Image style={styles.logo} source={require('./logoMantu.gif')}/>
-            <Text style={styles.funny}>.FUNNY</Text>
-            <Text style={styles.title}>Select a name ^^</Text>
+            <Text style={styles.funny}>.WeSpeak</Text>
+            <Text style={styles.title}>Select a name</Text>
             <TextInput
               value={value}
               onChangeText={value => this.setState({ value })}

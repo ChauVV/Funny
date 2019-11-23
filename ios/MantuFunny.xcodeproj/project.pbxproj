@@ -51,8 +51,10 @@
 		22804EC01441079920DDD38D /* Pods-MantuFunny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MantuFunny.release.xcconfig"; path = "Target Support Files/Pods-MantuFunny/Pods-MantuFunny.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* MantuFunny-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MantuFunny-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MantuFunny-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MantuFunny-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47389B20A8725DE8E786D18E /* Pods-MantuFunny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MantuFunny.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MantuFunny/Pods-MantuFunny.debug.xcconfig"; sourceTree = "<group>"; };
 		7B40861C2CE16697EE681CF9 /* Pods-MantuFunny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MantuFunny.debug.xcconfig"; path = "Target Support Files/Pods-MantuFunny/Pods-MantuFunny.debug.xcconfig"; sourceTree = "<group>"; };
 		89243CB2B73389C7F70A9CA1 /* libPods-MantuFunny.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MantuFunny.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF8F99C23C6DEC958EF9D34F /* Pods-MantuFunny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MantuFunny.release.xcconfig"; path = "Pods/Target Support Files/Pods-MantuFunny/Pods-MantuFunny.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -136,6 +138,8 @@
 			children = (
 				7B40861C2CE16697EE681CF9 /* Pods-MantuFunny.debug.xcconfig */,
 				22804EC01441079920DDD38D /* Pods-MantuFunny.release.xcconfig */,
+				47389B20A8725DE8E786D18E /* Pods-MantuFunny.debug.xcconfig */,
+				BF8F99C23C6DEC958EF9D34F /* Pods-MantuFunny.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -266,7 +270,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = S422C592ZG;
+						DevelopmentTeam = DCFFVCGDL2;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -591,7 +595,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = S422C592ZG;
+				DEVELOPMENT_TEAM = DCFFVCGDL2;
 				INFOPLIST_FILE = MantuFunny/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -612,7 +616,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S422C592ZG;
+				DEVELOPMENT_TEAM = DCFFVCGDL2;
 				INFOPLIST_FILE = MantuFunny/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

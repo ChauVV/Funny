@@ -13,6 +13,7 @@ import PostDetail from 'screens/PostDetail'
 import NewsFeedScreen from 'screens/Home/NewsFeedScreen'
 
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
+import OnBoard from 'screens/OnBoardScreen'
 
 import GlobalView from 'components/GlobalView'
 
@@ -24,7 +25,7 @@ import NaviStore from 'mobxStore/NaviStore'
 import AppStore from 'mobxStore/AppStore'
 
 import { RouteKey } from 'utils/globalConstants'
-import { height, THEME_DEFAULT, width } from 'utils/globalStyles'
+import { THEME_DEFAULT } from 'utils/globalStyles'
 
 /** ------------------------------------------*
 * Activities:
@@ -87,6 +88,7 @@ const MainStack = createStackNavigator(
 )
 const SwitchNavigator = (isLogin) => createSwitchNavigator(
   {
+    OnBoard: OnBoard,
     LoggedOut: {
       screen: Register
     },
@@ -95,7 +97,7 @@ const SwitchNavigator = (isLogin) => createSwitchNavigator(
     }
   },
   {
-    initialRouteName: isLogin ? 'LoggedIn' : 'LoggedOut'
+    initialRouteName: isLogin ? 'LoggedIn' : 'OnBoard'
   }
 )
 const getRootNavigation = (isLogin) => SwitchNavigator(isLogin)
