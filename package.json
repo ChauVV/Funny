@@ -73,10 +73,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ]
+  }
 }
