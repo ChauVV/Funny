@@ -1,18 +1,19 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import {
-  StyleSheet, SafeAreaView, TouchableOpacity, TextInput, Image,
+  StyleSheet, SafeAreaView, TouchableOpacity, Image,
   View, Text
 } from 'react-native'
 import PropTypes from 'prop-types'
-import { THEME_DEFAULT, FONT, width, height } from 'utils/globalStyles'
-import Moment from 'moment'
+import { width, height, THEME_DEFAULT } from 'utils/globalStyles'
+import NaviStore from 'mobxStore/NaviStore'
+// import Moment from 'moment'
 // import HomeStore from 'mobxStore/HomeStore'
-// import Modal from 'components/ModalBox'
 
 // import { IcHome } from 'utils/globalIcons'
 import Images from 'assets/Images'
-
+import { FlatList } from 'react-native-gesture-handler'
+const ARR_TEMP = [1, 2, 3, 4, 5, 6, 7, 8]
 @observer
 class Home extends React.PureComponent {
   renderHeader = () => {
@@ -20,19 +21,7 @@ class Home extends React.PureComponent {
       <TouchableOpacity onPress={this.onPressHeader}
         style={styles.viewHeader}>
         <Image source={Images.imgTemp} style={styles.iconAva} />
-        <TextInput
-          style={{ color: '#2A2A2A', width: width(80) }}
-          onChangeText={() => {
-          }}
-          editable={false}
-          multiline={true}
-          placeholder={'Hôm nay bạn thế nào ?'}
-          underlineColorAndroid={'rgba(0,0,0,0)'}
-          returnKeyType='done'
-          autoFocus={false}
-          autoCapitalize={'none'}
-        />
-        <Image source={Images.icNext} style={{ width: 24, height: 24, paddingRight: 20, backgroundColor: 'red', }} />
+        <Text style={{ color: THEME_DEFAULT.colorLightGray }}>What on your mind?</Text>
       </TouchableOpacity>)
   }
 
@@ -48,7 +37,7 @@ class Home extends React.PureComponent {
           </View>
         </View>
         <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
-        <Image source={Images.imgTemp} style={{ width: width(100), height: height(25),alignSelf: 'center' }} resizeMode={'center'}/>
+        <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>
         <View style={styles.footerItem}>
           <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
@@ -69,15 +58,25 @@ class Home extends React.PureComponent {
   }
 
   onPressHeader = () => {
-    // this.refs.modal.open()
+    NaviStore.pushToScreen('NewsFeedScreen')
   }
 
   render () {
-    const { gotoTab } = this.props
+    // const { } = this.props
     return (
       <SafeAreaView style={styles.safeAreaView}>
         {this.renderHeader()}
-        {this.renderItemList()}
+        <FlatList
+          data={ARR_TEMP}
+          keyExtractor={(index) => `${index}`}
+          refreshing={false}
+          renderItem={({ item, index }) =>
+            this.renderItemList()
+          }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10, backgroundColor: THEME_DEFAULT.colorLightGray }}
+        />
+
       </SafeAreaView>
     )
   }
@@ -94,14 +93,17 @@ Home.propTypes = {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white'
   },
   viewHeader: {
     width: width(100),
     height: height(8),
     backgroundColor: 'white',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderBottomColor: THEME_DEFAULT.colorLine,
+    borderBottomWidth: 0.5
   },
   iconAva: {
     width: 44,
@@ -120,9 +122,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   itemView: {
-    margin: 16,
-    backgroundColor: 'white',
-    borderRadius: 5
+    marginVertical: 5,
+    backgroundColor: 'white'
+    // borderRadius: 5
   },
   icon: {
     width: 22,

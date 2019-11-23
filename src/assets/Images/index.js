@@ -18,6 +18,10 @@ const Images = {
   icLoveOn: require('./home/ic_love_on.png'),
   icComment: require('./home/ic_comment.png'),
   icMore: require('./home/ic_more.png'),
-  icNext: require('./home/ic_next.png')
+  icNext: require('./home/ic_next.png'),
+  icDelete: require('./home/ic_delete.png'),
+  icClose: require('./home/ic_close.png'),
+  icSend: require('./home/ic_send_on.png'),
+  icImage: require('./home/ic_image.png')
 }
 export default Images
