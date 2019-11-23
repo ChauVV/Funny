@@ -1,5 +1,4 @@
 const Images = {
-  homeBg: require('./home/home_bg.png'),
   bgLoginTablet: require('./login/bgLoginTablet.jpg'),
   icnAgent: require('./login/icnAgent.png'),
   icnPassword: require('./login/icnPassword.png'),
@@ -14,6 +13,11 @@ const Images = {
   speak2: require('./OnBoard/speak2.jpeg'),
   speak3: require('./OnBoard/speak3.png'),
   speak4: require('./OnBoard/speak4.png'),
-  ic_arrow_next_right: require('./OnBoard/ic_arrow_next_right.png')
+  ic_arrow_next_right: require('./OnBoard/ic_arrow_next_right.png'),
+  imgTemp: require('./home/imgTemp2.png'),
+  icLoveOn: require('./home/ic_love_on.png'),
+  icComment: require('./home/ic_comment.png'),
+  icMore: require('./home/ic_more.png'),
+  icNext: require('./home/ic_next.png')
 }
 export default Images
