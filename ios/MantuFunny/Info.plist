@@ -39,6 +39,12 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>WeSpeak need to use Camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>WeSpeak wants to save photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>WeSpeak need to use Photo Library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Oswald-Bold.ttf</string>

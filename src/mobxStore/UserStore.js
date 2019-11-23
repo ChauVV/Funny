@@ -11,7 +11,12 @@ import { RouteKey, KeyStore } from 'utils/globalConstants'
 class User {
   @observable userId = ''
   @observable name = 'John'
+  @observable bio = 'Say something about you!'
   @observable isLoging = false
+
+  @action updateBio = (bio) => {
+    this.bio = bio || 'Say something about you!'
+  }
 
   @action getLogin = async () => {
     const UserId = await AsyncStore.get(KeyStore.USER_ID)
