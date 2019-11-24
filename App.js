@@ -9,6 +9,7 @@ import { createSwitchNavigator, createStackNavigator, createBottomTabNavigator }
 import Home from 'screens/Home'
 import Register from 'screens/Register'
 import Follow from 'screens/Follow'
+import EditProfile from 'screens/Follow/EditProfile'
 import PostDetail from 'screens/PostDetail'
 import NewsFeedScreen from 'screens/Home/NewsFeedScreen'
 
@@ -43,11 +44,19 @@ console.disableYellowBox = true
 /** ------------------------------------------*
 * Group Code: Navigation
 * ------------------------------------------- */
+const FollowStack = createStackNavigator(
+  {
+    Follow: Follow,
+    EditProfile: EditProfile
+  }, {
+    headerMode: 'none'
+  }
+)
 
 const MainTabbar = createBottomTabNavigator(
   {
     Home: Home,
-    Follow: Follow
+    FollowStack: FollowStack
   },
   {
     navigationOptions: ({ navigation }) => ({

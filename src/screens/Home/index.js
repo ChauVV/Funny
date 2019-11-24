@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import {
   StyleSheet, SafeAreaView, TouchableOpacity, Image,
-  View, Text
+  View, Text, StatusBar
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { width, height, THEME_DEFAULT } from 'utils/globalStyles'
@@ -16,6 +16,16 @@ import { FlatList } from 'react-native-gesture-handler'
 const ARR_TEMP = [1, 2, 3, 4, 5, 6, 7, 8]
 @observer
 class Home extends React.PureComponent {
+  componentDidMount () {
+    this._navListener = this.props.navigation.addListener('didFocus', () => {
+      StatusBar.setBarStyle('dark-content')
+    })
+  }
+
+  componentWillUnmount () {
+    this._navListener.remove()
+  }
+
   renderHeader = () => {
     return (
       <TouchableOpacity onPress={this.onPressHeader}

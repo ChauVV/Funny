@@ -4,6 +4,7 @@ import {
   StyleSheet, Animated, StatusBar,
   Platform, RefreshControl, TouchableOpacity
 } from 'react-native'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 // import NaviStore from 'mobxStore/NaviStore'
 import UserStore from 'mobxStore/UserStore'
@@ -21,6 +22,7 @@ const HEADER_MAX_HEIGHT = 300
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 133
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 
+@observer
 class AnimatedHeader extends React.Component {
 state = {
   scrollY: new Animated.Value(
@@ -29,6 +31,16 @@ state = {
   ),
   refreshing: false
 };
+
+componentDidMount () {
+  this._navListener = this.props.navigation.addListener('didFocus', () => {
+    StatusBar.setBarStyle('light-content')
+  })
+}
+
+componentWillUnmount () {
+  this._navListener.remove()
+}
 
   _renderItem = ({ item }) => {
     return (
@@ -56,12 +68,8 @@ state = {
         includeExif: true,
         multiple: false
       }).then(image => {
-        console.log('images: ', image)
-        // if (pickImageIndex === PICK_IMAGES_INDEX[1]) {
-        //   this.props.uploadWallImage(user._id, image, 1, tokenData.token)
-        // } else {
-        //   this.props.uploadWallImage(user._id, image, 2, tokenData.token)
-        // }
+        console.log('update avatar: ', image)
+        UserStore.avatar = image.path
       }).catch(e => console.log('pickSingleWithCamera', e))
     } catch (error) {
       console.log('onOpenPickerImage: ', error)
@@ -74,12 +82,8 @@ state = {
       ImagePicker.openCamera({
         width: width(100), height: height(100)
       }).then(image => {
-        console.log('images: ', image)
-        // if (pickImageIndex === PICK_IMAGES_INDEX[1]) {
-        //   this.props.uploadWallImage(user._id, image, 1, tokenData.token)
-        // } else {
-        //   this.props.uploadWallImage(user._id, image, 2, tokenData.token)
-        // }
+        console.log('update avatar: ', image)
+        UserStore.avatar = image.path
       }).catch(e => console.log('pickSingleWithCamera1!', e))
     } catch (error) {
       console.log('pickSingleWithCamera2', error)
@@ -119,11 +123,6 @@ state = {
 
     return (
       <View style={styles.fill}>
-        <StatusBar
-          translucent
-          barStyle="light-content"
-          backgroundColor='rgba(0, 0, 0, 0.251)'
-        />
         <AnimatedFlatList
           contentContainerStyle={{ paddingTop: Platform.OS === 'ios' ? 0 : HEADER_MAX_HEIGHT }}
           style={styles.fill}
@@ -183,19 +182,29 @@ state = {
               this.ActionSheet.show()
             }}
           >
-            <Animated.Image
-              pointerEvents="none"
-              style={[styles.avatar,
-                {
-                  transform: [
-                    { scale: avatarScale },
-                    { translateY: marginBottom }
-                    // { translateX: marginLeft }
-                  ]
-
-                }]}
-              source={require('./assets/avata.jpg')}
-            />
+            { UserStore.avatar
+              ? <Animated.Image
+                pointerEvents="none"
+                style={[styles.avatar,
+                  {
+                    transform: [
+                      { scale: avatarScale },
+                      { translateY: marginBottom }
+                    ]
+                  }]}
+                source={{ uri: UserStore.avatar }}
+              />
+              : <Animated.Image
+                pointerEvents="none"
+                style={[styles.avatar,
+                  {
+                    transform: [
+                      { scale: avatarScale },
+                      { translateY: marginBottom }
+                    ]
+                  }]}
+                source={require('./assets/avata.jpg')}
+              />}
             <View>
               <Animated.Text
                 style={[styles.name,
