@@ -1,8 +1,8 @@
 
 import DeviceInfo from 'react-native-device-info'
 
-export const BaseURLApis = 'http://10.10.26.151:6996'
-export const BaseURL = 'http://10.10.26.151:8089'
+export const BaseURLApis = 'https://5dda31555730550014fe75fa.mockapi.io'
+export const BaseURL = 'https://5dda31555730550014fe75fa.mockapi.io'
 export const RouteKey = {
   ModalDisplay: 'ModalDisplay',
   LibraryDetail: 'LibraryDetail',

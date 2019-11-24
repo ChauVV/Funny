@@ -10,13 +10,15 @@ import { RouteKey, KeyStore } from 'utils/globalConstants'
 
 class User {
   @observable userId = ''
-  @observable name = 'John'
+  @observable name = 'Anonymous'
   @observable bio = 'Say something about you!'
   @observable isLoging = false
   @observable avatar = null
 
-  @action updateBio = (bio) => {
+  @action saveInfo = (name, bio) => {
+    this.name = name || 'Anonymous'
     this.bio = bio || 'Say something about you!'
+    NaviStore.goBack()
   }
 
   @action getLogin = async () => {

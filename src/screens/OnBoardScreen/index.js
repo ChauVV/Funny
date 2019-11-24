@@ -92,18 +92,18 @@ class OnBoardScreen extends Component {
             {
               backgroundColor: 'purple',
               image: <Image source={Images.intro2} resizeMode={'contain'} style={styles.image} />,
-              title: this.renderTitle('Do you try it?', 'yellow'),
+              title: this.renderTitle('Let\'s try', 'yellow'),
               subtitle: this.renderSubtitle('Connect, Interact with other Mantu members', 'white')
             },
             {
               backgroundColor: 'rgb(48, 189, 184)',
               image: <Image source={Images.speak3} resizeMode={'contain'} style={styles.image1}/>,
               title: this.renderTitle('Say it'),
-              subtitle: this.renderSubtitle('Speak out what you are still afraid', 'purple')
+              subtitle: this.renderSubtitle('Speak out what you mean!', 'purple')
             },
             {
               backgroundColor: 'white',
-              title: this.renderTitle('Special'),
+              title: this.renderTitle('Remember'),
               image: <Image source={Images.speak1} resizeMode={'contain'} style={styles.image1}/>,
               subtitle: this.renderDoneButton()
             }
