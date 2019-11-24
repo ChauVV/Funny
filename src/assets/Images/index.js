@@ -22,6 +22,7 @@ const Images = {
   icDelete: require('./home/ic_delete.png'),
   icClose: require('./home/ic_close.png'),
   icSend: require('./home/ic_send_on.png'),
-  icImage: require('./home/ic_image.png')
+  icImage: require('./home/ic_image.png'),
+  defaultAvatar: require('./follow/avata.jpg')
 }
 export default Images

@@ -13,6 +13,7 @@ class User {
   @observable name = 'John'
   @observable bio = 'Say something about you!'
   @observable isLoging = false
+  @observable avatar = null
 
   @action updateBio = (bio) => {
     this.bio = bio || 'Say something about you!'
