@@ -28,11 +28,11 @@ class Register extends React.PureComponent {
           <View style={styles.content}>
             <Image style={styles.logo} source={require('./logoMantu.gif')}/>
             <Text style={styles.funny}>.WeSpeak</Text>
-            <Text style={styles.title}>Select a name</Text>
+            {/* <Text style={styles.title}>Select a name</Text> */}
             <TextInput
               value={value}
               onChangeText={value => this.setState({ value })}
-              placeholder='Anonymous'
+              placeholder='Select an anonymous name.'
               style={styles.input}
               placeholderTextColor='gray'
             />
@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
   funny: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: height(2),
-    marginBottom: height(5)
+    fontSize: height(4),
+    marginBottom: height(5),
+    marginTop: 30
   },
   btnText: {
     color: 'white'
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     width: height(30)
   },
   title: {
-    fontSize: height(4),
+    fontSize: height(1),
     color: 'white',
     fontWeight: 'bold'
   },

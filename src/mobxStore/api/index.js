@@ -110,4 +110,70 @@ export default class ServerApi {
    const data = { introduceItems }
    return post(url, data, header)
  }
+
+ // User
+ // Create user
+ static createUser = (user) => {
+   const url = BaseURLApis + '/User'
+   const header = {
+   }
+   console.log('createUser: ', user, url)
+   return post(url, user, header)
+ }
+
+ // Edit user
+ static editUser = (user) => {
+   const url = BaseURL + `/users/${user.id}`
+   const header = {
+   }
+
+   console.log('editUser: ', user, url)
+   return put(url, user, header)
+ }
+
+ // Post
+ static getAllPost = () => {
+   const url = BaseURLApis + '/Post'
+   const header = {
+   }
+   console.log('getAllPost', url)
+   return get(url, header)
+ }
+
+ // Create post
+ static createPost = (post) => {
+   const url = BaseURLApis + '/Post'
+   const header = {
+   }
+   console.log('createPost: ', post, url)
+   return post(url, post, header)
+ }
+
+ // Edit post
+ static editPost = (post) => {
+   const url = BaseURL + `/Post/${post.id}`
+   const header = {
+   }
+
+   console.log('editUser: ', post, url)
+   return put(url, post, header)
+ }
+
+ // get all comment of post
+ static getAllPostCommnet = (post) => {
+   const url = BaseURLApis + `/Post/${post.id}/Comment`
+   const header = {
+   }
+   console.log('getAllPostCommnet', url)
+   return get(url, header)
+ }
+
+  // Create commnet
+  static createCommnet = (postId, comment) => {
+    const url = BaseURLApis + `/Post/${postId}/Comment`
+    const header = {
+    }
+    console.log('createCommnet: ', comment, url)
+    return post(url, comment, header)
+  }
 }
