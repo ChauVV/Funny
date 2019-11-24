@@ -151,6 +151,7 @@ class EditProfile extends PureComponent {
 
           <TouchableOpacity
             style={styles.btnSave}
+            onPress={() => UserStore.saveInfo(this.state.name, this.state.bio)}
           >
             <Text style={styles.btnSaveText}>SAVE</Text>
           </TouchableOpacity>
