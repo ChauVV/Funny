@@ -37,7 +37,7 @@ class Home extends React.PureComponent {
           </View>
         </View>
         <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
-        <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>
+        {/* <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/> */}
         <View style={styles.footerItem}>
           <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
