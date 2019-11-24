@@ -6,7 +6,7 @@
 import React, { PureComponent } from 'react'
 
 import {
-  View, Dimensions, ScrollView, TouchableOpacity, FlatList,
+  View, Dimensions, TouchableOpacity, FlatList,
   Image, TextInput, Text, KeyboardAvoidingView, Platform, SafeAreaView
 } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
@@ -14,6 +14,7 @@ import PropTypes from 'prop-types'
 import Header from 'components/Header'
 import Images from 'assets/Images'
 import NaviStore from 'mobxStore/NaviStore'
+import { height } from 'utils/globalStyles'
 
 const { width } = Dimensions.get('window')
 
@@ -22,7 +23,7 @@ class NewsFeedScreen extends PureComponent {
     super(props)
     this.state = {
       txtStatus: '',
-      image: []
+      images: []
     }
   }
 
@@ -30,9 +31,11 @@ class NewsFeedScreen extends PureComponent {
     ImagePicker.openPicker({
       mediaType: 'photo',
       waitAnimationEnd: false,
-      includeExif: true
-    }).then(image => {
-      // if (ARR_IMAGE.length != 0) {
+      includeExif: true,
+      multiple: true
+    }).then(images => {
+      // console.log('image', images)
+      // if (ARR_IMAGE.length !== 0) {
       //   ARR_IMAGE.pop()
       // }
       // images.map((i, key) => {
@@ -40,25 +43,26 @@ class NewsFeedScreen extends PureComponent {
       // })
       // ARR_IMAGE.push({ id: -1, uri: '', width: 90, height: 90, mime: 'image/jpeg' })
       this.setState({
-        image: image
+        images
       })
     }).catch(e => console.log(e))
   }
 
-  renderRowItemImage = (image) => {
+  renderRowItemImage = ({ item, index }) => {
     return (
-      <View style={{ height: 102, width: 102, margin: 6 }}>
-        <View style={{ flex: 1 }}>
-          <View style={{ bottom: 0, left: 0, position: 'absolute' }}>
-            <Image style={{ height: 90, width: 90, borderRadius: 5 }}
-              source={{ uri: image.item.path }} />
-          </View>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{ width: 24, height: 24, top: 0, right: 0, position: 'absolute' }}>
-            <Image source={Images.icDelete} style={{ width: 24, height: 24 }} />
-          </TouchableOpacity>
-        </View>
+      <View style={{ marginRight: index % 2 === 0 ? 3 : 0 }}>
+        <Image style={{ height: height(40), width: width / 2 }}
+          source={{ uri: item.path }} />
+        {/* <TouchableOpacity
+            onPress={() => {
+              this.setState({
+                images: []
+              })
+            }}
+            style={{ width: 24, height: 24, top: 0, right: -3, position: 'absolute', justifyContent: 'center' }}>
+            <Image source={Images.icDelete} style={{ width: 16, height: 16 }} />
+          </TouchableOpacity> */}
+
       </View>
     )
   }
@@ -77,14 +81,14 @@ class NewsFeedScreen extends PureComponent {
             style={[styles.colorPicker, { borderRadius: 8 }]}>
             <Image source={Images.icImage} resizeMode={'contain'}/>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}>
             <Image style={styles.icon} source={Images.icMap} resizeMode={'contain'}/>
             <Text style={styles.text}>Địa điểm</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
             <Image style={styles.icon} source={Images.icTag} resizeMode={'contain'}/>
             <Text style={styles.text}>Với bạn bè</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -94,10 +98,11 @@ class NewsFeedScreen extends PureComponent {
     return (
       <View style={{ flex: 1 }}>
         <FlatList
+          ListHeaderComponent={this.renderHeader()}
           data={this.state.images}
-          numColumns={3}
+          numColumns={2}
           keyExtractor={this._keyExtractor}
-          renderItem={this.renderRowItemImage}
+          renderItem={(item, index) => this.renderRowItemImage(item, index)}
         />
       </View>
     )
@@ -105,32 +110,30 @@ class NewsFeedScreen extends PureComponent {
 
   renderHeader () {
     return (
-      <ScrollView>
-        <View style={{ flex: 1 }}>
-          <View onPress={this.onPressHeader}
-            style={{ width, flexDirection: 'row' }}>
-            <Image source={Images.imgTemp} style={styles.iconAva} />
-            <Text style={{ paddingTop: 10, fontSize: 18 }}>Jeremy</Text>
-          </View>
-          <TextInput
-            style={styles.textInput}
-            scrollEnabled={false}
-            onChangeText={(text) => this.setState({ txtStatus: text })}
-            value={this.state.txtStatus}
-            multiline={true}
-            placeholder={'Hôm nay bạn thế nào ?'}
-            underlineColorAndroid={'rgba(0,0,0,0)'}
-            returnKeyType='done'
-            autoFocus={false}
-            autoCapitalize={'none'}
-          />
+      <View style={{ }}>
+        <View onPress={this.onPressHeader}
+          style={{ width, flexDirection: 'row' }}>
+          <Image source={Images.imgTemp} style={styles.iconAva} />
+          <Text style={{ paddingTop: 10, fontSize: 18 }}>Jeremy</Text>
         </View>
-      </ScrollView>
+        <TextInput
+          style={styles.textInput}
+          scrollEnabled={false}
+          onChangeText={(text) => this.setState({ txtStatus: text })}
+          value={this.state.txtStatus}
+          multiline={true}
+          placeholder={'Say something about these photo...'}
+          underlineColorAndroid={'rgba(0,0,0,0)'}
+          returnKeyType='done'
+          autoFocus={false}
+          autoCapitalize={'none'}
+        />
+      </View>
     )
   }
 
   render () {
-    const { txtStatus, images } = this.state
+    // const { txtStatus, images } = this.state
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
         <Header
@@ -143,8 +146,8 @@ class NewsFeedScreen extends PureComponent {
           onPressRight={() => {}}
         />
         <KeyboardAvoidingView
-          style={{ flex: 1, backgroundColor: 'white' }} behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
-          {this.renderHeader()}
+          style={{ flex: 1, backgroundColor: 'white' }}
+          behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
           {this.renderMiddel()}
           {this.renderBottom()}
         </KeyboardAvoidingView>
@@ -195,13 +198,16 @@ const styles = {
   textInput: {
     fontSize: 17,
     paddingHorizontal: 10,
-    paddingBottom: 30
+    paddingBottom: 10
   },
   viewBottom: {
     height: 60,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row'
+  },
+  viewMiddle: {
+
   },
   colorPicker: {
     width: 30,

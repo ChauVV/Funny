@@ -37,7 +37,7 @@ class Home extends React.PureComponent {
 
   renderItemList = () => {
     return (
-      <View style={styles.itemView}>
+      <TouchableOpacity activeOpacity={1} onPress={() => NaviStore.pushToScreen('PostDetail')} style={styles.itemView}>
         <View style={[styles.hearderItem]}>
           <Image source={Images.imgTemp} style={styles.iconAva} />
           <View style={{ flex: 1 }}>
@@ -63,7 +63,7 @@ class Home extends React.PureComponent {
             <Image source={Images.icMore} style={styles.icon} />
           </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
   footerItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 15,
     overflow: 'hidden'
   },
   itemView: {
-    marginVertical: 5,
+    marginVertical: 2,
     backgroundColor: 'white'
     // borderRadius: 5
   },

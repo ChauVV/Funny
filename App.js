@@ -69,7 +69,6 @@ const MainTabbar = createBottomTabNavigator(
         } else {
           iconName = 'heart'
         }
-
         return <IconFontAwesome
           name={iconName}
           style={{ color: focused ? THEME_DEFAULT.colorBackground : '#7e7e7e', fontSize: 20 }}
@@ -88,7 +87,14 @@ const MainTabbar = createBottomTabNavigator(
 const MainStack = createStackNavigator(
   {
     MainTabbar: MainTabbar,
-    PostDetail: PostDetail,
+    PostDetail: PostDetail
+  }, {
+    headerMode: 'none'
+  }
+)
+const MainSubStack = createStackNavigator(
+  {
+    MainStack: MainStack,
     NewsFeedScreen: NewsFeedScreen
   }, {
     headerMode: 'none',
@@ -102,7 +108,7 @@ const SwitchNavigator = (isLogin) => createSwitchNavigator(
       screen: Register
     },
     LoggedIn: {
-      screen: MainStack
+      screen: MainSubStack
     }
   },
   {
