@@ -18,3 +18,4 @@ export const IcPreCircle = ({ color, size }) => { return <IconFontAwesome name='
 export const IcNextCircle = ({ color, size }) => { return <IconFontAwesome name='chevron-circle-right' style={{ color: color || 'white', fontSize: size || 14 }} /> }
 export const IcYoutube = ({ color, size, style }) => { return <IconFontAwesome name='play' style={[{ color: color || 'white', fontSize: size || 14 }, style]} /> }
 export const IcBack = ({ color, size, style }) => { return <Ionicons name='md-arrow-round-back' style={[{ color: color || 'white', fontSize: size || 14 }, style]} /> }
+export const IcCamera = ({ color, size, style }) => { return <Ionicons name='md-camera' style={[{ color: color || 'white', fontSize: size || 14 }, style]} /> }

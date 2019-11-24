@@ -1,16 +1,16 @@
 import React from 'react'
 import {
-  View, FlatList, Text,
+  View, FlatList, Text, Image,
   StyleSheet, Animated, StatusBar,
   Platform, RefreshControl, TouchableOpacity
 } from 'react-native'
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-// import NaviStore from 'mobxStore/NaviStore'
+import NaviStore from 'mobxStore/NaviStore'
 import UserStore from 'mobxStore/UserStore'
-import Messages from 'utils/globalMessages'
-import ActionSheet from 'react-native-actionsheet'
-import ImagePicker from 'react-native-image-crop-picker'
+import { IcEdit } from 'utils/globalIcons'
+import Images from 'assets/Images'
+import { height } from 'utils/globalStyles'
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 20, 21, 22, 23, 24, 25, 26]
 
@@ -18,7 +18,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
 
 const AVATAR_HEIGHT = 80
-const HEADER_MAX_HEIGHT = 300
+const HEADER_MAX_HEIGHT = 200
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 133
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 
@@ -44,50 +44,34 @@ componentWillUnmount () {
 
   _renderItem = ({ item }) => {
     return (
-      <View style={styles.nonsenseItem}>
-        <Text style={styles.itemText}>{item}</Text>
+      <View style={styles.itemView}>
+        <View style={[styles.hearderItem]}>
+          <Image source={Images.imgTemp} style={styles.iconAva} />
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 15, fontWeight: '600' }}>{'Anonymous'}</Text>
+            {/* <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{Moment(item.PostedAt * 1000).fromNow()}</Text> */}
+            <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{'2 day ago'}</Text>
+          </View>
+        </View>
+        <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
+        <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>
+        <View style={styles.footerItem}>
+          <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
+            <TouchableOpacity style={styles.btn} onPress={() => {}}>
+              <Image source={Images.icLoveOn } style={styles.icon} />
+              <Text style={{ paddingLeft: 5 }}>{'10'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btn} onPress={() => {}}>
+              <Image source={Images.icComment} style={styles.icon} />
+              <Text style={{ paddingLeft: 5 }}>{'6'}</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end', marginRight: 15 }}>
+            <Image source={Images.icMore} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
       </View>
     )
-  }
-
-  selectActionSheet = (i) => {
-    console.log('selectActionSheet: ', i)
-    if (i === 1) {
-      this.pickSingleWithCamera()
-    } else if (i === 2) {
-      this.onOpenPickerImage()
-    }
-  }
-
-  onOpenPickerImage = () => {
-    console.log('onOpenPickerImage')
-    try {
-      ImagePicker.openPicker({
-        mediaType: 'photo',
-        waitAnimationEnd: false,
-        includeExif: true,
-        multiple: false
-      }).then(image => {
-        console.log('update avatar: ', image)
-        UserStore.avatar = image.path
-      }).catch(e => console.log('pickSingleWithCamera', e))
-    } catch (error) {
-      console.log('onOpenPickerImage: ', error)
-    }
-  }
-
-  pickSingleWithCamera = () => {
-    try {
-      console.log('pickSingleWithCamera')
-      ImagePicker.openCamera({
-        width: width(100), height: height(100)
-      }).then(image => {
-        console.log('update avatar: ', image)
-        UserStore.avatar = image.path
-      }).catch(e => console.log('pickSingleWithCamera1!', e))
-    } catch (error) {
-      console.log('pickSingleWithCamera2', error)
-    }
   }
 
   render () {
@@ -177,10 +161,7 @@ componentWillUnmount () {
             style={[
               styles.viewAvatar
             ]}
-            onPress={() => {
-              console.log('press')
-              this.ActionSheet.show()
-            }}
+            activeOpacity={1}
           >
             { UserStore.avatar
               ? <Animated.Image
@@ -226,13 +207,17 @@ componentWillUnmount () {
             </View>
           </AnimatedTouchableOpacity>
         </Animated.View>
-        <ActionSheet
-          ref={o => { this.ActionSheet = o }}
-          title={Messages.cameraTitle}
-          options={[Messages.cancel, Messages.cameraCapture, Messages.cameraGallery]}
-          cancelButtonIndex={0}
-          onPress={(e) => this.selectActionSheet(e)}
-        />
+        {/* bar */}
+        <Animated.View
+          style={[
+            styles.bar
+          ]}
+        >
+          <View/>
+          <TouchableOpacity style={styles.btnEdit} onPress={() => NaviStore.pushToScreen('EditProfile')}>
+            <IcEdit size={24}/>
+          </TouchableOpacity>
+        </Animated.View>
       </View>
     )
   }
@@ -248,22 +233,27 @@ AnimatedHeader.propTypes = {
   pop: PropTypes.func
 }
 const styles = StyleSheet.create({
+  itemView: {
+    marginVertical: 5,
+    backgroundColor: 'white'
+    // borderRadius: 5
+  },
+  btnEdit: {
+    marginRight: 15,
+    marginTop: 25
+  },
+  bar: {
+    marginTop: 38,
+    height: 82,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   fill: {
     flex: 1
-  },
-  nonsenseItem: {
-    backgroundColor: 'rgba(0, 0, 255, 0.5)',
-    margin: 8,
-    borderRadius: 10,
-    padding: 10
-  },
-  itemText: {
-    fontSize: 40,
-    padding: 20,
-    fontWeight: '400',
-    color: 'white',
-    textAlign: 'center',
-    borderRadius: 10
   },
   header: {
     position: 'absolute',
@@ -315,5 +305,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: AVATAR_HEIGHT / 2,
     resizeMode: 'cover'
+  },
+  iconAva: {
+    width: 44,
+    height: 44,
+    margin: 10,
+    borderRadius: 22
+  },
+  hearderItem: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  footerItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    overflow: 'hidden'
+  },
+  icon: {
+    width: 22,
+    height: 22
+  },
+  txtDescription: {
+    paddingHorizontal: 10,
+    paddingVertical: 5
+  },
+  btn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
   }
 })
