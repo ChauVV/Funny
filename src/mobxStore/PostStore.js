@@ -80,7 +80,7 @@ const ALL_POST = [
     descriptions: 'What’s the price of hackathon?',
     image: 'https://s3.amazonaws.com/hackathonwatch/hackathon/uploads/hackathon/logo/525/normal_Logo-Hackathon-_1_.png',
     time: '3 days ago',
-    like: 3045,
+    like: 2136,
     comments: [
       {
         id: 'cm7',

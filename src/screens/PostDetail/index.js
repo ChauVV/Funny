@@ -58,7 +58,7 @@ class PostDetail extends PureComponent {
               multiline={true}
               value={this.state.comment}
               maxLength={100}
-              placeholder={'Nhập bình luận'}
+              placeholder={'Text...'}
               underlineColorAndroid={'rgba(0,0,0,0)'}
               returnKeyType='done'
               autoFocus={false}
@@ -125,7 +125,7 @@ class PostDetail extends PureComponent {
               <Text style={{ fontSize: 12, fontWeight: '300' }}>{item.time}</Text>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingRight: 20 }}>
                 <Image source={Images.icReply} style={{ width: 24, height: 24 }} />
-                <Text style={{ fontSize: 12, fontWeight: '300', marginVertical: 5 }}>Trả lời</Text>
+                <Text style={{ fontSize: 12, fontWeight: '300', marginVertical: 5 }}>Reply</Text>
               </View>
             </View>
           </View>
