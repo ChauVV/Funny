@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { observable, action } from 'mobx'
 import AsyncStore from 'react-native-simple-store'
 // import ServerApis from 'mobxStore/api'
@@ -13,7 +14,7 @@ class User {
   @observable name = 'Anonymous'
   @observable bio = 'Say something about you!'
   @observable isLoging = false
-  @observable avatar = 'https://s3.amazonaws.com/uifaces/faces/twitter/johnsmithagency/128.jpg'
+  @observable avatar = 'https://s3.amazonaws.com/uifaces/faces/twitter/herrhaase/128.jpg'
 
   @action saveInfo = (name, bio) => {
     this.name = name || 'Anonymous'

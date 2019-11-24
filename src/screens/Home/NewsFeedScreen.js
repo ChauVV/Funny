@@ -114,8 +114,8 @@ class NewsFeedScreen extends PureComponent {
     return (
       <View style={{ }}>
         <View style={{ width, flexDirection: 'row', paddingTop: 10, marginHorizontal: 10 }}>
-          <Image source={Images.imgTemp} style={styles.iconAva} />
-          <Text style={{ paddingLeft: 10, fontSize: 18, fontWeight: '500' }}>Anonymous</Text>
+          <Image source={{ uri: UserStore.avatar }} style={styles.iconAva} />
+          <Text style={{ paddingLeft: 10, fontSize: 18, fontWeight: '500' }}>{UserStore.name}</Text>
         </View>
         <TextInput
           style={styles.textInput}

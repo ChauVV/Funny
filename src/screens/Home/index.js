@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { observer } from 'mobx-react'
 import {
@@ -8,19 +9,19 @@ import PropTypes from 'prop-types'
 import { width, height, THEME_DEFAULT } from 'utils/globalStyles'
 import NaviStore from 'mobxStore/NaviStore'
 // import Moment from 'moment'
-// import HomeStore from 'mobxStore/HomeStore'
+import UserStore from 'mobxStore/UserStore'
 import FastImage from 'react-native-fast-image'
 import PostStore from 'mobxStore/PostStore'
-
-// import { IcHome } from 'utils/globalIcons'
 import Images from 'assets/Images'
 import { FlatList } from 'react-native-gesture-handler'
-const ARR_TEMP = [1, 2, 3, 4, 5, 6, 7, 8]
+
 @observer
 class Home extends React.PureComponent {
   componentDidMount () {
+    PostStore.getAllPost()
     this._navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('dark-content')
+      this.forceUpdate()
     })
   }
 
@@ -31,7 +32,7 @@ class Home extends React.PureComponent {
   renderHeader = () => {
     return (
       <TouchableOpacity onPress={this.onPressHeader} style={styles.viewHeader}>
-        <Image source={Images.imgTemp} style={styles.iconAva} />
+        <Image source={{ uri: UserStore.avatar }} style={styles.iconAva} />
         <Text style={{ color: THEME_DEFAULT.colorLightGray }}>What on your mind?</Text>
       </TouchableOpacity>)
   }

@@ -15,6 +15,7 @@ import Images from 'assets/Images'
 import NaviStore from 'mobxStore/NaviStore'
 import PostStore from 'mobxStore/PostStore'
 import { height, THEME_DEFAULT } from 'utils/globalStyles'
+import UserStore from 'mobxStore/UserStore'
 
 const { width } = Dimensions.get('window')
 
@@ -23,8 +24,23 @@ class PostDetail extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      txtStatus: '',
-      comments: [1, 2, 3, 4, 5]
+      comment: ''
+    }
+  }
+
+  addComment = () => {
+    const { comment } = this.state
+    if (comment.length > 0) {
+      const c = {
+        id: `${new Date().getTime()}`,
+        comment: comment,
+        userAvatar: UserStore.avatar,
+        userName: UserStore.name,
+        time: 'Just now',
+        like: 0
+      }
+      PostStore.addComment(c)
+      this.setState({ comment: '' })
     }
   }
 
@@ -40,6 +56,7 @@ class PostDetail extends PureComponent {
               style={{ flex: 1, color: '#2A2A2A', paddingLeft: 10 }}
               onChangeText={(text) => this.setState({ comment: text })}
               multiline={true}
+              value={this.state.comment}
               maxLength={100}
               placeholder={'Nhập bình luận'}
               underlineColorAndroid={'rgba(0,0,0,0)'}
@@ -49,7 +66,7 @@ class PostDetail extends PureComponent {
               ref={ref => { this.textInputRef = ref }}
             />
           </View>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => this.addComment()}>
             <Image source={Images.icSend} style={{ width: 24, height: 24, margin: 10, alignSelf: 'flex-start' }} />
           </TouchableOpacity>
         </View>
@@ -139,7 +156,6 @@ class PostDetail extends PureComponent {
     }
 
     render () {
-      // const { txtStatus, images } = this.state
       return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
           <KeyboardAvoidingView

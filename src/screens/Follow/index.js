@@ -14,8 +14,6 @@ import Images from 'assets/Images'
 import { height } from 'utils/globalStyles'
 import FastImage from 'react-native-fast-image'
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 20, 21, 22, 23, 24, 25, 26]
-
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
 
@@ -37,6 +35,7 @@ state = {
 componentDidMount () {
   this._navListener = this.props.navigation.addListener('didFocus', () => {
     StatusBar.setBarStyle('light-content')
+    this.forceUpdate()
   })
 }
 

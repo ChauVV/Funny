@@ -75,5 +75,7 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "pre-commit": [
+  ]
 }
