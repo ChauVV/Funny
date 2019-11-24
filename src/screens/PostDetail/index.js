@@ -91,10 +91,10 @@ class PostDetail extends PureComponent {
       )
     }
 
-    renderRowItemComment =({}) => {
+    renderRowItemComment =({ item }) => {
       return (
         <View style={{ flexDirection: 'row', paddingLeft: 30, paddingTop: 10 }}>
-          <Image source={Images.imgTemp} style={{ width: 44, height: 44 }} />
+          <Image source={{ uri: item.userAvatar }} style={{ width: 44, height: 44 }} />
           <View style={{
             flex: 1,
             borderBottomWidth: 0.5,
@@ -102,10 +102,10 @@ class PostDetail extends PureComponent {
             paddingLeft: 10,
             paddingBottom: 5
           }}>
-            <Text style={{ fontSize: 17, fontWeight: '600' }}>{'Anonymous'}</Text>
-            <Text style={{ fontSize: 13, fontWeight: '400', marginTop: 5 }}>{'Dat dep trai'}</Text>
+            <Text style={{ fontSize: 17, fontWeight: '600' }}>{item.userName}</Text>
+            <Text style={{ fontSize: 13, fontWeight: '400', marginTop: 5 }}>{item.comment}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ fontSize: 12, fontWeight: '300' }}>{'4 days ago'}</Text>
+              <Text style={{ fontSize: 12, fontWeight: '300' }}>{item.time}</Text>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingRight: 20 }}>
                 <Image source={Images.icReply} style={{ width: 24, height: 24 }} />
                 <Text style={{ fontSize: 12, fontWeight: '300', marginVertical: 5 }}>Trả lời</Text>
@@ -132,7 +132,7 @@ class PostDetail extends PureComponent {
             </TouchableOpacity>
           </View>
           <Text style={styles.txtDescription}>{PostStore.selectedPost.descriptions}</Text>
-          {PostStore.selectedPost.image && <Image source={{ uri: PostStore.selectedPost.image }} style={{ width: '98%', height: height(30), alignSelf: 'center' }} resizeMode={'center'}/>}
+          {PostStore.selectedPost.image && <Image source={{ uri: PostStore.selectedPost.image }} style={{ width: '100%', height: height(25), alignSelf: 'center' }}/>}
           {this.renderEmotion()}
         </View>
       )

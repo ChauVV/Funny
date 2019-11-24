@@ -9,6 +9,8 @@ import { width, height, THEME_DEFAULT } from 'utils/globalStyles'
 import NaviStore from 'mobxStore/NaviStore'
 // import Moment from 'moment'
 // import HomeStore from 'mobxStore/HomeStore'
+import FastImage from 'react-native-fast-image'
+import PostStore from 'mobxStore/PostStore'
 
 // import { IcHome } from 'utils/globalIcons'
 import Images from 'assets/Images'
@@ -34,28 +36,31 @@ class Home extends React.PureComponent {
       </TouchableOpacity>)
   }
 
-  renderItemList = () => {
+  renderItemList = ({ item }) => {
     return (
-      <TouchableOpacity activeOpacity={1} onPress={() => NaviStore.pushToScreen('PostDetail')} style={styles.itemView}>
+      <TouchableOpacity activeOpacity={1} onPress={() => {
+        PostStore.selectedPost = item
+        NaviStore.pushToScreen('PostDetail')
+      }} style={styles.itemView}>
         <View style={[styles.hearderItem]}>
-          <Image source={Images.imgTemp} style={styles.iconAva} />
+          <FastImage source={{ uri: item.avatar }} style={styles.iconAva} />
           <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15, fontWeight: '600' }}>{'Anonymous'}</Text>
+            <Text style={{ fontSize: 15, fontWeight: '600' }}>{item.name}</Text>
             {/* <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{Moment(item.PostedAt * 1000).fromNow()}</Text> */}
-            <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{'2 day ago'}</Text>
+            <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{item.time}</Text>
           </View>
         </View>
-        <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
-        <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>
+        <Text style={styles.txtDescription}>{item.descriptions}</Text>
+        {item.image && <FastImage source={{ uri: item.image }} style={{ width: '100%', height: height(25), alignSelf: 'center' }}/>}
         <View style={styles.footerItem}>
           <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
               <Image source={Images.icLoveOn } style={styles.icon} />
-              <Text style={{ paddingLeft: 5 }}>{'10'}</Text>
+              <Text style={{ paddingLeft: 5 }}>{item.like}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
               <Image source={Images.icComment} style={styles.icon} />
-              <Text style={{ paddingLeft: 5 }}>{'6'}</Text>
+              <Text style={{ paddingLeft: 5 }}>{item.comments.length}</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end', marginRight: 15 }}>
@@ -76,12 +81,10 @@ class Home extends React.PureComponent {
       <SafeAreaView style={styles.safeAreaView}>
         {this.renderHeader()}
         <FlatList
-          data={ARR_TEMP}
+          data={PostStore.posts}
           keyExtractor={(index) => `${index}`}
           refreshing={false}
-          renderItem={({ item, index }) =>
-            this.renderItemList()
-          }
+          renderItem={this.renderItemList}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10, backgroundColor: THEME_DEFAULT.colorLightGray }}
         />

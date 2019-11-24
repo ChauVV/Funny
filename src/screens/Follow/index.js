@@ -53,13 +53,13 @@ componentWillUnmount () {
         <View style={[styles.hearderItem]}>
           <FastImage source={{ uri: item.avatar }} style={styles.iconAva} />
           <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15, fontWeight: '600' }}>{'Anonymous'}</Text>
+            <Text style={{ fontSize: 15, fontWeight: '600' }}>{item.name}</Text>
             {/* <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{Moment(item.PostedAt * 1000).fromNow()}</Text> */}
-            <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{'2 day ago'}</Text>
+            <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{item.time}</Text>
           </View>
         </View>
         <Text style={styles.txtDescription}>{item.descriptions}</Text>
-        {item.image && <FastImage source={{ uri: item.image }} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>}
+        {item.image && <FastImage source={{ uri: item.image }} style={{ width: '100%', height: height(25), alignSelf: 'center' }}/>}
         <View style={styles.footerItem}>
           <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>

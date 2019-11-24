@@ -13,7 +13,7 @@ class Post {
       name: 'Patricia Franecki',
       avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/johnsmithagency/128.jpg',
       descriptions: 'Hey !!!Why didn’t you come to training?????????',
-      image: null,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6NPGtBMo8ymOD64ublHIzzvwhTovwDOzbTsLuVjhtl8zpBlCT&s',
       time: '2 days ago',
       like: 3045,
       comments: [
@@ -74,11 +74,58 @@ class Post {
           like: 102
         }
       ]
+    },
+    {
+      id: 2,
+      name: 'anonymous',
+      avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/richwild/128.jpg',
+      descriptions: 'What’s the price of hackathon?',
+      image: 'https://s3.amazonaws.com/hackathonwatch/hackathon/uploads/hackathon/logo/525/normal_Logo-Hackathon-_1_.png',
+      time: '3 days ago',
+      like: 3045,
+      comments: [
+        {
+          id: 'cm7',
+          comment: 'What you mean?',
+          userAvatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/okansurreel/128.jpg',
+          userName: 'Kelton Fritsch',
+          time: '3 days ago',
+          like: 102
+        },
+        {
+          id: 'cm8',
+          comment: '30 mil',
+          userAvatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/swooshycueb/128.jpg',
+          userName: 'anonymous',
+          time: '13 hours ago',
+          like: 543
+        },
+        {
+          id: 'cm9',
+          comment: 'wow! I will got it.',
+          userAvatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/okansurreel/128.jpg',
+          userName: 'anonymous',
+          time: '13 hours ago',
+          like: 543
+        }
+      ]
+    },
+    {
+      id: 3,
+      name: 'Kelton Fritsch',
+      avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/okansurreel/128.jpg',
+      descriptions: 'Year end party is coming? Who know what’s plan?',
+      image: null,
+      time: '4 days ago',
+      like: 115,
+      comments: [
+
+      ]
     }
   ]
 
-  @action addPost = () => {
-
+  @action addPost = (post) => {
+    this.posts.unshift(post)
   }
 }
 const PostStore = new Post()

@@ -14,6 +14,8 @@ import PropTypes from 'prop-types'
 import Header from 'components/Header'
 import Images from 'assets/Images'
 import NaviStore from 'mobxStore/NaviStore'
+import UserStore from 'mobxStore/UserStore'
+import PostStore from 'mobxStore/PostStore'
 import { height } from 'utils/globalStyles'
 
 const { width } = Dimensions.get('window')
@@ -131,6 +133,22 @@ class NewsFeedScreen extends PureComponent {
     )
   }
 
+  addPost = () => {
+    const post = {
+      id: new Date().getTime(),
+      name: UserStore.name,
+      avatar: UserStore.avatar,
+      descriptions: this.state.txtStatus,
+      image: null,
+      time: 'Just now',
+      like: 0,
+      comments: []
+    }
+
+    PostStore.addPost(post)
+    NaviStore.goBack()
+  }
+
   render () {
     // const { txtStatus, images } = this.state
     return (
@@ -142,7 +160,7 @@ class NewsFeedScreen extends PureComponent {
           iconLeftStyle={styles.icAdd}
           iconRight={Images.icSend}
           iconRightStyle={styles.icAdd}
-          onPressRight={() => {}}
+          onPressRight={() => this.addPost()}
         />
         <KeyboardAvoidingView
           style={{ flex: 1, backgroundColor: 'white' }}

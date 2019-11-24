@@ -13,7 +13,7 @@ class User {
   @observable name = 'Anonymous'
   @observable bio = 'Say something about you!'
   @observable isLoging = false
-  @observable avatar = null
+  @observable avatar = 'https://s3.amazonaws.com/uifaces/faces/twitter/johnsmithagency/128.jpg'
 
   @action saveInfo = (name, bio) => {
     this.name = name || 'Anonymous'
