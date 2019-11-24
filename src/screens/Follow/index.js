@@ -46,7 +46,10 @@ componentWillUnmount () {
 
   _renderItem = ({ item }) => {
     return (
-      <View style={styles.itemView}>
+      <TouchableOpacity activeOpacity={1} onPress={() => {
+        PostStore.selectedPost = item
+        NaviStore.pushToScreen('PostDetail')
+      }} style={styles.itemView}>
         <View style={[styles.hearderItem]}>
           <FastImage source={{ uri: item.avatar }} style={styles.iconAva} />
           <View style={{ flex: 1 }}>
@@ -72,7 +75,7 @@ componentWillUnmount () {
             <Image source={Images.icMore} style={styles.icon} />
           </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 

@@ -6,6 +6,7 @@ import { observable, action } from 'mobx'
 // const pvk = 'GQDstcKsx1KHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk'
 
 class Post {
+  @observable selectedPost = null
   @observable posts = [
     {
       id: 0,

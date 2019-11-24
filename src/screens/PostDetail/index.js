@@ -4,7 +4,7 @@
  * Copyright (c) 2018 Jeremy
  */
 import React, { PureComponent } from 'react'
-
+import { observer } from 'mobx-react'
 import {
   View, Dimensions, TouchableOpacity, FlatList,
   Image, TextInput, Text, KeyboardAvoidingView, Platform, SafeAreaView
@@ -13,10 +13,12 @@ import PropTypes from 'prop-types'
 // import Header from 'components/Header'
 import Images from 'assets/Images'
 import NaviStore from 'mobxStore/NaviStore'
+import PostStore from 'mobxStore/PostStore'
 import { height, THEME_DEFAULT } from 'utils/globalStyles'
 
 const { width } = Dimensions.get('window')
 
+@observer
 class PostDetail extends PureComponent {
   constructor (props) {
     super(props)
@@ -60,14 +62,14 @@ class PostDetail extends PureComponent {
           <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
               <Image source={Images.icLoveOn } style={styles.icon} />
-              <Text style={{ paddingLeft: 5 }}>{'10'}</Text>
+              <Text style={{ paddingLeft: 5 }}>{PostStore.selectedPost.like}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
               <Image source={Images.icComment} style={styles.icon} />
-              <Text style={{ paddingLeft: 5 }}>{'6'}</Text>
+              <Text style={{ paddingLeft: 5 }}>{PostStore.selectedPost.comments.length}</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end', paddingRight: 10  }}>
+          <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end', paddingRight: 10 }}>
             <Image source={Images.icMore} style={styles.icon} />
           </TouchableOpacity>
         </View>
@@ -81,7 +83,7 @@ class PostDetail extends PureComponent {
           <FlatList
             ListHeaderComponent={this.renderHeader()}
             // ListFooterComponent={this.renderBottom()}
-            data={this.state.comments}
+            data={PostStore.selectedPost.comments}
             keyExtractor={_keyExtractor}
             renderItem={(item, index) => this.renderRowItemComment(item, index)}
           />
@@ -89,7 +91,7 @@ class PostDetail extends PureComponent {
       )
     }
 
-    renderRowItemComment =() => {
+    renderRowItemComment =({}) => {
       return (
         <View style={{ flexDirection: 'row', paddingLeft: 30, paddingTop: 10 }}>
           <Image source={Images.imgTemp} style={{ width: 44, height: 44 }} />
@@ -120,29 +122,17 @@ class PostDetail extends PureComponent {
             <TouchableOpacity onPress={() => NaviStore.goBack()} style={{ justifyContent: 'center' }}>
               <Image source={Images.icBack} style={styles.icBack} />
             </TouchableOpacity>
-            <Image source={Images.imgTemp} style={styles.iconAva} />
+            <Image source={{ uri: PostStore.selectedPost.avatar }} style={styles.iconAva} />
             <View>
-              <Text style={{ fontSize: 18, fontWeight: '600' }}>Anonymous</Text>
-              <Text style={{ fontSize: 13, fontWeight: '300' }}>21 mins</Text>
+              <Text style={{ fontSize: 18, fontWeight: '600' }}>{PostStore.selectedPost.name}</Text>
+              <Text style={{ fontSize: 13, fontWeight: '300' }}>{PostStore.selectedPost.time}</Text>
             </View>
             <TouchableOpacity onPress={() => {}} style={{ position: 'absolute', right: 5 }}>
               <Image source={Images.icOption} style={styles.icOption} />
             </TouchableOpacity>
           </View>
-          {/* <TextInput
-            style={styles.textInput}
-            scrollEnabled={false}
-            onChangeText={(text) => this.setState({ txtStatus: text })}
-            value={this.state.txtStatus}
-            multiline={true}
-            placeholder={'Say something about these photo...'}
-            underlineColorAndroid={'rgba(0,0,0,0)'}
-            returnKeyType='done'
-            autoFocus={false}
-            autoCapitalize={'none'}
-          /> */}
-          <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
-          <Image source={Images.imgTemp} style={{ width: '98%', height: height(30), alignSelf: 'center' }} resizeMode={'center'}/>
+          <Text style={styles.txtDescription}>{PostStore.selectedPost.descriptions}</Text>
+          {PostStore.selectedPost.image && <Image source={{ uri: PostStore.selectedPost.image }} style={{ width: '98%', height: height(30), alignSelf: 'center' }} resizeMode={'center'}/>}
           {this.renderEmotion()}
         </View>
       )
