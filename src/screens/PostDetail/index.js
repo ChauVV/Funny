@@ -9,9 +9,8 @@ import {
   View, Dimensions, TouchableOpacity, FlatList,
   Image, TextInput, Text, KeyboardAvoidingView, Platform, SafeAreaView
 } from 'react-native'
-import ImagePicker from 'react-native-image-crop-picker'
 import PropTypes from 'prop-types'
-import Header from 'components/Header'
+// import Header from 'components/Header'
 import Images from 'assets/Images'
 import NaviStore from 'mobxStore/NaviStore'
 import { height, THEME_DEFAULT } from 'utils/globalStyles'
@@ -23,53 +22,39 @@ class PostDetail extends PureComponent {
     super(props)
     this.state = {
       txtStatus: '',
-      images: []
+      comments: [1, 2, 3, 4, 5]
     }
   }
 
-    pickMultipleImages = () => {
-      ImagePicker.openPicker({
-        mediaType: 'photo',
-        waitAnimationEnd: false,
-        includeExif: true,
-        multiple: true
-      }).then(images => {
-        // console.log('image', images)
-        // if (ARR_IMAGE.length !== 0) {
-        //   ARR_IMAGE.pop()
-        // }
-        // images.map((i, key) => {
-        //   ARR_IMAGE.push({ id: key, uri: i.path, width: i.width, height: i.height, mime: i.mime })
-        // })
-        // ARR_IMAGE.push({ id: -1, uri: '', width: 90, height: 90, mime: 'image/jpeg' })
-        this.setState({
-          images
-        })
-      }).catch(e => console.log(e))
-    }
-
-    renderRowItemImage = ({ item, index }) => {
+    renderBottom =() => {
       return (
-        <View style={{ marginRight: index % 2 === 0 ? 3 : 0 }}>
-          <Image style={{ height: height(40), width: width / 2 }}
-            source={{ uri: item.path }} />
-          {/* <TouchableOpacity
-              onPress={() => {
-                this.setState({
-                  images: []
-                })
-              }}
-              style={{ width: 24, height: 24, top: 0, right: -3, position: 'absolute', justifyContent: 'center' }}>
-              <Image source={Images.icDelete} style={{ width: 16, height: 16 }} />
-            </TouchableOpacity> */}
-
+        <View style={{
+          flexDirection: 'row',
+          paddingLeft: 16,
+          marginTop: 15
+        }}>
+          <View style={styles.search}>
+            <TextInput
+              style={{ flex: 1, color: '#2A2A2A', paddingLeft: 10 }}
+              onChangeText={(text) => this.setState({ comment: text })}
+              multiline={true}
+              maxLength={100}
+              placeholder={'Nhập bình luận'}
+              underlineColorAndroid={'rgba(0,0,0,0)'}
+              returnKeyType='done'
+              autoFocus={false}
+              autoCapitalize={'none'}
+              ref={ref => { this.textInputRef = ref }}
+            />
+          </View>
+          <TouchableOpacity onPress={() => {}}>
+            <Image source={Images.icSend} style={{ width: 24, height: 24, margin: 10, alignSelf: 'flex-start' }} />
+          </TouchableOpacity>
         </View>
       )
     }
 
-    _keyExtractor = (item, index) => index.toString();
-
-    renderBottom = () => {
+    renderEmotion = () => {
       return (
         <View style={styles.viewBottom}>
           <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-around' }}>
@@ -82,37 +67,69 @@ class PostDetail extends PureComponent {
               <Text style={{ paddingLeft: 5 }}>{'6'}</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end' }}>
+          <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end', paddingRight: 10  }}>
             <Image source={Images.icMore} style={styles.icon} />
           </TouchableOpacity>
         </View>
       )
     }
 
-    renderMiddel () {
+    renderMiddel = () => {
+      _keyExtractor = (item, index) => index.toString()
       return (
         <View style={{ flex: 1 }}>
           <FlatList
             ListHeaderComponent={this.renderHeader()}
-            ListFooterComponent={this.renderBottom()}
-            data={this.state.images}
-            numColumns={2}
-            keyExtractor={this._keyExtractor}
-            renderItem={(item, index) => this.renderRowItemImage(item, index)}
+            // ListFooterComponent={this.renderBottom()}
+            data={this.state.comments}
+            keyExtractor={_keyExtractor}
+            renderItem={(item, index) => this.renderRowItemComment(item, index)}
           />
         </View>
       )
     }
 
+    renderRowItemComment =() => {
+      return (
+        <View style={{ flexDirection: 'row', paddingLeft: 30, paddingTop: 10 }}>
+          <Image source={Images.imgTemp} style={{ width: 44, height: 44 }} />
+          <View style={{
+            flex: 1,
+            borderBottomWidth: 0.5,
+            borderBottomColor: THEME_DEFAULT.colorLine,
+            paddingLeft: 10,
+            paddingBottom: 5
+          }}>
+            <Text style={{ fontSize: 17, fontWeight: '600' }}>{'Anonymous'}</Text>
+            <Text style={{ fontSize: 13, fontWeight: '400', marginTop: 5 }}>{'Dat dep trai'}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ fontSize: 12, fontWeight: '300' }}>{'4 days ago'}</Text>
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingRight: 20 }}>
+                <Image source={Images.icReply} style={{ width: 24, height: 24 }} />
+                <Text style={{ fontSize: 12, fontWeight: '300', marginVertical: 5 }}>Trả lời</Text>
+              </View>
+            </View>
+          </View>
+        </View>)
+    }
+
     renderHeader () {
       return (
-        <View style={{ }}>
-          <View onPress={this.onPressHeader}
-            style={{ width, flexDirection: 'row' }}>
+        <View style={{ flex: 1 }}>
+          <View style={{ width, flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() => NaviStore.goBack()} style={{ justifyContent: 'center' }}>
+              <Image source={Images.icBack} style={styles.icBack} />
+            </TouchableOpacity>
             <Image source={Images.imgTemp} style={styles.iconAva} />
-            <Text style={{ paddingTop: 10, fontSize: 18 }}>Jeremy</Text>
+            <View>
+              <Text style={{ fontSize: 18, fontWeight: '600' }}>Anonymous</Text>
+              <Text style={{ fontSize: 13, fontWeight: '300' }}>21 mins</Text>
+            </View>
+            <TouchableOpacity onPress={() => {}} style={{ position: 'absolute', right: 5 }}>
+              <Image source={Images.icOption} style={styles.icOption} />
+            </TouchableOpacity>
           </View>
-          <TextInput
+          {/* <TextInput
             style={styles.textInput}
             scrollEnabled={false}
             onChangeText={(text) => this.setState({ txtStatus: text })}
@@ -123,7 +140,10 @@ class PostDetail extends PureComponent {
             returnKeyType='done'
             autoFocus={false}
             autoCapitalize={'none'}
-          />
+          /> */}
+          <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
+          <Image source={Images.imgTemp} style={{ width: '98%', height: height(30), alignSelf: 'center' }} resizeMode={'center'}/>
+          {this.renderEmotion()}
         </View>
       )
     }
@@ -132,15 +152,11 @@ class PostDetail extends PureComponent {
       // const { txtStatus, images } = this.state
       return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-          <Header
-            onPressLeft={() => NaviStore.goBack()}
-            iconLeft={Images.icClose}
-            iconLeftStyle={styles.icAdd}
-          />
           <KeyboardAvoidingView
             style={{ flex: 1, backgroundColor: 'white' }}
             behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
             {this.renderMiddel()}
+            {this.renderBottom()}
           </KeyboardAvoidingView>
         </SafeAreaView>
       )
@@ -166,6 +182,16 @@ const styles = {
   text: {
 
   },
+  icBack: {
+    width: 24,
+    height: 24,
+    marginHorizontal: 10
+  },
+  icOption: {
+    width: 24,
+    height: 24,
+    marginHorizontal: 10
+  },
   icon: {
     width: 15,
     height: 15,
@@ -173,17 +199,17 @@ const styles = {
   },
   search: {
     width: width - 80,
-    height: 40,
     backgroundColor: 'white',
     borderRadius: 16,
-    borderWidth: 1 / 3,
-    alignItems: 'center',
-    flexDirection: 'row'
+    borderWidth: 0.5,
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   iconAva: {
     width: 44,
     height: 44,
-    margin: 10,
+    marginRight: 10,
     borderRadius: 22
   },
   textInput: {
@@ -196,7 +222,7 @@ const styles = {
     alignSelf: 'center',
     borderBottomWidth: 0.5,
     borderTopWidth: 0.5,
-    borderColor: THEME_DEFAULT.line,
+    borderColor: THEME_DEFAULT.colorLine,
     height: 40,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -204,6 +230,10 @@ const styles = {
   },
   viewMiddle: {
 
+  },
+  txtDescription: {
+    paddingHorizontal: 10,
+    paddingVertical: 5
   },
   colorPicker: {
     width: 30,

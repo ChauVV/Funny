@@ -24,6 +24,8 @@ const Images = {
   icSend: require('./home/ic_send_on.png'),
   icImage: require('./home/ic_image.png'),
   defaultAvatar: require('./follow/avata.jpg'),
-  icBack: require('./home/ic_back_menu.png')
+  icBack: require('./home/ic_back_menu.png'),
+  icOption: require('./home/ic_option.png'),
+  icReply: require('./home/ic_reply.png')
 }
 export default Images
