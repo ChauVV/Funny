@@ -50,8 +50,8 @@ class NewsFeedScreen extends PureComponent {
 
   renderRowItemImage = ({ item, index }) => {
     return (
-      <View style={{ marginRight: index % 2 === 0 ? 3 : 0 }}>
-        <Image style={{ height: height(40), width: width / 2 }}
+      <View style={{ marginHorizontal: 3 }}>
+        <Image style={{ height: height(30), width: width - 6 }}
           source={{ uri: item.path }} />
         {/* <TouchableOpacity
             onPress={() => {
@@ -100,7 +100,7 @@ class NewsFeedScreen extends PureComponent {
         <FlatList
           ListHeaderComponent={this.renderHeader()}
           data={this.state.images}
-          numColumns={2}
+          numColumns={1}
           keyExtractor={this._keyExtractor}
           renderItem={(item, index) => this.renderRowItemImage(item, index)}
         />
@@ -111,10 +111,9 @@ class NewsFeedScreen extends PureComponent {
   renderHeader () {
     return (
       <View style={{ }}>
-        <View onPress={this.onPressHeader}
-          style={{ width, flexDirection: 'row' }}>
+        <View style={{ width, flexDirection: 'row', paddingTop: 10, marginHorizontal: 10 }}>
           <Image source={Images.imgTemp} style={styles.iconAva} />
-          <Text style={{ paddingTop: 10, fontSize: 18 }}>Jeremy</Text>
+          <Text style={{ paddingLeft: 10, fontSize: 18, fontWeight: '500' }}>Anonymous</Text>
         </View>
         <TextInput
           style={styles.textInput}
@@ -122,7 +121,7 @@ class NewsFeedScreen extends PureComponent {
           onChangeText={(text) => this.setState({ txtStatus: text })}
           value={this.state.txtStatus}
           multiline={true}
-          placeholder={'Say something about these photo...'}
+          placeholder={'Say something about...'}
           underlineColorAndroid={'rgba(0,0,0,0)'}
           returnKeyType='done'
           autoFocus={false}
@@ -192,11 +191,10 @@ const styles = {
   iconAva: {
     width: 44,
     height: 44,
-    margin: 10,
     borderRadius: 22
   },
   textInput: {
-    fontSize: 17,
+    fontSize: 16,
     paddingHorizontal: 10,
     paddingBottom: 10
   },

@@ -28,8 +28,7 @@ class Home extends React.PureComponent {
 
   renderHeader = () => {
     return (
-      <TouchableOpacity onPress={this.onPressHeader}
-        style={styles.viewHeader}>
+      <TouchableOpacity onPress={this.onPressHeader} style={styles.viewHeader}>
         <Image source={Images.imgTemp} style={styles.iconAva} />
         <Text style={{ color: THEME_DEFAULT.colorLightGray }}>What on your mind?</Text>
       </TouchableOpacity>)
@@ -47,7 +46,7 @@ class Home extends React.PureComponent {
           </View>
         </View>
         <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
-        {/* <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/> */}
+        <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>
         <View style={styles.footerItem}>
           <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
