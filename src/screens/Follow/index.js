@@ -8,9 +8,11 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import NaviStore from 'mobxStore/NaviStore'
 import UserStore from 'mobxStore/UserStore'
+import PostStore from 'mobxStore/PostStore'
 import { IcEdit } from 'utils/globalIcons'
 import Images from 'assets/Images'
 import { height } from 'utils/globalStyles'
+import FastImage from 'react-native-fast-image'
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 20, 21, 22, 23, 24, 25, 26]
 
@@ -46,24 +48,24 @@ componentWillUnmount () {
     return (
       <View style={styles.itemView}>
         <View style={[styles.hearderItem]}>
-          <Image source={Images.imgTemp} style={styles.iconAva} />
+          <FastImage source={{ uri: item.avatar }} style={styles.iconAva} />
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 15, fontWeight: '600' }}>{'Anonymous'}</Text>
             {/* <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{Moment(item.PostedAt * 1000).fromNow()}</Text> */}
             <Text style={{ fontSize: 12, fontWeight: '100', marginTop: 5 }}>{'2 day ago'}</Text>
           </View>
         </View>
-        <Text style={styles.txtDescription}>{'I used to be so beautiful now look at me...'}</Text>
-        <Image source={Images.imgTemp} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>
+        <Text style={styles.txtDescription}>{item.descriptions}</Text>
+        {item.image && <FastImage source={{ uri: item.image }} style={{ width: '100%', height: height(25), alignSelf: 'center' }} resizeMode={'center'}/>}
         <View style={styles.footerItem}>
           <View style={{ flex: 5, flexDirection: 'row', justifyContent: 'space-around' }}>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
               <Image source={Images.icLoveOn } style={styles.icon} />
-              <Text style={{ paddingLeft: 5 }}>{'10'}</Text>
+              <Text style={{ paddingLeft: 5 }}>{item.like}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
               <Image source={Images.icComment} style={styles.icon} />
-              <Text style={{ paddingLeft: 5 }}>{'6'}</Text>
+              <Text style={{ paddingLeft: 5 }}>{item.comments.length}</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={{ flex: 5, alignItems: 'flex-end', marginRight: 15 }}>
@@ -121,7 +123,7 @@ componentWillUnmount () {
               }
             }
           )}
-          data={data}
+          data={PostStore.posts}
           renderItem={this._renderItem}
           keyExtractor={(_, i) => i.toString()}
           // iOS offset for RefreshControl
