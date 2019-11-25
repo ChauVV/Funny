@@ -49,7 +49,7 @@ class PostDetail extends PureComponent {
         <View style={{
           flexDirection: 'row',
           paddingLeft: 16,
-          marginTop: 15
+          marginVertical: 15
         }}>
           <View style={styles.search}>
             <TextInput
@@ -208,9 +208,10 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: 16,
     borderWidth: 0.5,
-    paddingVertical: 15,
+    paddingVertical: 5,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   iconAva: {
     width: 44,

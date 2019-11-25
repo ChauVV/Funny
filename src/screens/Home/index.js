@@ -83,7 +83,7 @@ class Home extends React.PureComponent {
         {this.renderHeader()}
         <FlatList
           data={PostStore.posts}
-          keyExtractor={(index) => `${index}`}
+          keyExtractor={(i, index) => `cellpost${index}`}
           refreshing={false}
           renderItem={this.renderItemList}
           showsVerticalScrollIndicator={false}

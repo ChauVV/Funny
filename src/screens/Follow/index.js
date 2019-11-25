@@ -120,8 +120,6 @@ componentWillUnmount () {
             {
               useNativeDriver: true, // <-- Add this
               listener: event => {
-                const offsetY = event.nativeEvent.contentOffset.y
-                console.log('offsetY: ', offsetY)
               }
             }
           )}

@@ -21,7 +21,7 @@ import GlobalView from 'components/GlobalView'
 import NetInfo from '@react-native-community/netinfo'
 
 import UserStore from 'mobxStore/UserStore'
-import HomeStore from 'mobxStore/HomeStore'
+// import HomeStore from 'mobxStore/HomeStore'
 import NaviStore from 'mobxStore/NaviStore'
 import AppStore from 'mobxStore/AppStore'
 
@@ -131,11 +131,12 @@ class App extends React.PureComponent {
 
   async componentDidMount () {
     const isLogin = await UserStore.getLogin()
-    if (isLogin) {
-      await HomeStore.getHomeData()
-    }
+    // if (isLogin) {
+    //   await HomeStore.getHomeData()
+    // }
     this.setState({ isLogin, isLoading: false })
-    SplashScreen.hide()
+    console.log('hereeee')
+    setTimeout(() => { SplashScreen.hide() }, 3000)
   }
 
   render () {
